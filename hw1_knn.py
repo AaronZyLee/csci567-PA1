@@ -31,7 +31,7 @@ class KNN:
             disArr = numpy.array(disArr)
             indexArr = disArr.argsort()
             classCount = {}
-            for k in range(0,self.k+1):
+            for k in range(0,self.k):
                 voteLabel = self.val[indexArr[k]]
                 classCount[voteLabel]=classCount.get(voteLabel,0)+1
             sortedClassCount=sorted(classCount.items(),key=operator.itemgetter(1),reverse=True)

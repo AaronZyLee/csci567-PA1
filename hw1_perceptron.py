@@ -38,18 +38,21 @@ class Perceptron:
         # to correct weights w. Note that w[0] is the bias term. and first term is
         # expected to be 1 --- accounting for the bias
         ############################################################################
+        converge = False
         features = np.array(features)
         iter=0
-        while iter<=self.max_iteration:
-            temp = (self.w*features[iter]).sum()
-            gradient = labels[iter]*features[iter]/np.linalg.norm(features[iter])
-            if np.linalg.norm(gradient)<self.margin:
-                break
-            if temp*labels[iter] > 0:
-                iter+=1
-                continue
-            self.w += self.w + gradient
+        while iter<self.max_iteration and not converge:
             iter+=1
+            i = 0
+            while i<len(features):
+                temp = (self.w*features[i]).sum()
+                if temp*labels[i]<=self.margin:
+                    self.w += labels[i]*features[i]/np.linalg.norm(features[i])
+                    break
+                i+=1
+            if i==len(features):
+                converge = True
+        return converge
 
     def reset(self):
         self.w = [0 for i in range(0,self.nb_features+1)]

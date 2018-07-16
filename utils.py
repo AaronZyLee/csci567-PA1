@@ -8,7 +8,7 @@ def mean_squared_error(y_true: List[float], y_pred: List[float]) -> float:
     sum = 0
     for i in range(0,len(y_true)):
         sum += (y_true[i]-y_pred[i])**2
-    return sum
+    return sum/len(y_true)
 
 
 def f1_score(real_labels: List[int], predicted_labels: List[int]) -> float:
